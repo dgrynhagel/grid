@@ -36,12 +36,21 @@ with tab3:
             options = pd.Series(osoby["NAZWISKO"].unique()).sort_values(),
             key = 'osobyimprezy'
         )
-        Nazwa = st.multiselect(
+
+        imprezy_selectbox = pd.DataFrame(imprezy,columns = ["_id","NAZWA"])
+        imprezy_testdict = dict(imprezy_selectbox.values)
+        imprezy_values = imprezy_selectbox['NAZWA'].tolist()
+        imprezy_options = imprezy_selectbox['_id'].tolist()
+        imprezy_dict = dict(zip(str(imprezy_options),imprezy_values))
+        st.write(imprezy_testdict)
+        Nazwa = st.selectbox(
             " Wybierz impreze:",
-            options = pd.Series(imprezy["NAZWA"].unique()).sort_values()
+            options = imprezy_options,
+            format_func=lambda x: imprezy_testdict[x]
         )
         # imprezy_selection = imprezy.query (
         #     "NAZWA == @Nazwa" 
         # )
 
         st.form_submit_button('Dodaj osobę do imprezy')
+    st.write(Nazwa)    

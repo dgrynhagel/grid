@@ -28,6 +28,6 @@ def get_osoby():
 
 def get_imprezy():
     db = connect_mongo("mongo_cloud",'CRM')
-    filters = db.Imprezy.find({}, {"_id":0})
+    filters = db.Imprezy.find({})
     filters = list(filters)  # make hashable for st.cache_data
     return filters
